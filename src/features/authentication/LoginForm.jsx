@@ -22,15 +22,11 @@ function LoginForm() {
           onChange={(e) => setEmail(e.target.value)}
         />
       </FormRowVertical>
+
       <FormRowVertical label="Password">
-        <Input
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <Input type="password" id="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </FormRowVertical>
+
       <FormRowVertical>
         <Button size="large">Login</Button>
       </FormRowVertical>
