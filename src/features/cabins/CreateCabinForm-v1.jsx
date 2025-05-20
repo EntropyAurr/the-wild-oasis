@@ -53,6 +53,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
     if (isEditSession) editCabin({ newCabinData: { ...data, image }, id: editId });
     else createCabin({ ...data, image: image });
   }
+  // When submitting the form, data of the form will be passed into useMutation hook and used in mutationFn when calling the function from API
 
   function onError(errors) {
     toast.error(errors.message);
