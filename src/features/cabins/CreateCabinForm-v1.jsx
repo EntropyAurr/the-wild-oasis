@@ -28,6 +28,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
   function onSubmit(data) {
     const image = typeof data.image === "string" ? data.image : data.image[0];
+    // input field for image has type="file" => browser return the selected file as a FileList => need to specify the index for chosen image even when there is only 1 image in the FileList (length = 0)
 
     if (isEditSession) {
       editCabin({ newCabinData: { ...data, image }, id: editId });
