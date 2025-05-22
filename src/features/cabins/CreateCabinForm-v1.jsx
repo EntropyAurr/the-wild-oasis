@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
@@ -7,22 +8,21 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
-import { useState } from "react";
 import { useCreateCabin } from "./useCreateCabin";
-import { useEditCabin } from "./useEditCabin";
+import { useUpdateCabin } from "./useUpdateCabin";
 
-function CreateCabinForm({ cabinToEdit = {} }) {
+function CreateCabinForm({ cabinToUpdate = {} }) {
   const [isFormOpen, setIsFormOpen] = useState(true);
   const { createCabin, isCreating } = useCreateCabin();
-  const { editCabin, isEditing } = useEditCabin();
+  const { updateCabin, isUpdating } = useUpdateCabin();
 
-  const isWorking = isCreating || isEditing;
+  const isWorking = isCreating || isUpdating;
 
-  const { id: editId, ...editValues } = cabinToEdit;
-  const isEditSession = Boolean(editId);
+  const { id: updateId, ...updateValue } = cabinToUpdate;
+  const isUpdateSession = Boolean(updateId);
 
   const { register, handleSubmit, reset, getValues, formState } = useForm({
-    defaultValues: isEditSession ? editValues : {},
+    defaultValues: isUpdateSession ? updateValue : {},
   });
   const { errors } = formState;
 
@@ -30,8 +30,8 @@ function CreateCabinForm({ cabinToEdit = {} }) {
     const image = typeof data.image === "string" ? data.image : data.image[0];
     // input field for image has type="file" => browser return the selected file as a FileList => need to specify the index for chosen image even when there is only 1 image in the FileList (length = 0)
 
-    if (isEditSession) {
-      editCabin({ newCabinData: { ...data, image }, id: editId });
+    if (isUpdateSession) {
+      updateCabin({ newCabinData: { ...data, image }, id: updateId });
     } else
       createCabin(
         { ...data, image: image },
@@ -119,7 +119,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           id="image"
           accept="image/*"
           {...register("image", {
-            required: isEditSession ? false : "This field is required",
+            required: isUpdateSession ? false : "This field is required",
           })}
         />
       </FormRow>
@@ -130,7 +130,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
         </Button>
 
         <Button variation="primary" size="medium" disabled={isWorking}>
-          {isEditSession ? "Edit cabin" : "Create new cabin"}
+          {isUpdateSession ? "Edit cabin" : "Create new cabin"}
         </Button>
       </FormRow>
     </Form>
