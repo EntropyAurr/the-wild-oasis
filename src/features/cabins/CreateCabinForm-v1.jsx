@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
@@ -11,8 +11,9 @@ import FormRow from "../../ui/FormRow";
 import { useCreateCabin } from "./useCreateCabin";
 import { useUpdateCabin } from "./useUpdateCabin";
 
-function CreateCabinForm({ cabinToUpdate = {} }) {
-  const [isFormOpen, setIsFormOpen] = useState(true);
+function CreateCabinForm({ cabinToUpdate = {}, onCloseModal }) {
+  const [showForm, setShowForm] = useState(true);
+
   const { createCabin, isCreating } = useCreateCabin();
   const { updateCabin, isUpdating } = useUpdateCabin();
 
@@ -26,17 +27,36 @@ function CreateCabinForm({ cabinToUpdate = {} }) {
   });
   const { errors } = formState;
 
+  if (!showForm) return null;
+
+  function handleClose() {
+    onCloseModal?.();
+    setShowForm(false);
+  }
+
   function onSubmit(data) {
     const image = typeof data.image === "string" ? data.image : data.image[0];
     // input field for image has type="file" => browser return the selected file as a FileList => need to specify the index for chosen image even when there is only 1 image in the FileList (length = 0)
 
     if (isUpdateSession) {
-      updateCabin({ newCabinData: { ...data, image }, id: updateId });
+      updateCabin(
+        { newCabinData: { ...data, image }, id: updateId },
+        {
+          onSuccess: () => {
+            reset();
+            setShowForm(false);
+          },
+        }
+      );
+      return null;
     } else
       createCabin(
         { ...data, image: image },
         {
-          onSuccess: () => reset(),
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
         }
       );
   }
@@ -44,8 +64,6 @@ function CreateCabinForm({ cabinToUpdate = {} }) {
   function onError(errors) {
     toast.error(errors.message);
   }
-
-  if (!isFormOpen) return null;
 
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
@@ -125,7 +143,7 @@ function CreateCabinForm({ cabinToUpdate = {} }) {
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" size="medium" type="reset" onClick={() => setIsFormOpen((open) => !open)}>
+        <Button variation="secondary" size="medium" type="reset" onClick={handleClose}>
           Cancel
         </Button>
 
