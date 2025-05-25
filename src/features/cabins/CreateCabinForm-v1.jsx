@@ -44,7 +44,7 @@ function CreateCabinForm({ cabinToUpdate = {}, onCloseModal }) {
         {
           onSuccess: () => {
             reset();
-            setShowForm(false);
+            onCloseModal?.();
           },
         }
       );

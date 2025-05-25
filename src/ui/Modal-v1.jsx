@@ -1,19 +1,9 @@
 import { cloneElement, createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
-import { HiXMark } from "react-icons/hi2";
-import styled from "styled-components";
 
-const StyledModal = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: var(--color-grey-0);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-lg);
-  padding: 3.2rem 4rem;
-  transition: all 0.5s;
-`;
+import styled from "styled-components";
+import { HiXMark } from "react-icons/hi2";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 const Overlay = styled.div`
   position: fixed;
@@ -24,6 +14,18 @@ const Overlay = styled.div`
   background-color: var(--backdrop-color);
   backdrop-filter: blur(4px);
   z-index: 1000;
+  transition: all 0.5s;
+`;
+
+const StyledModal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-grey-0);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 3.2rem 4rem;
   transition: all 0.5s;
 `;
 
@@ -73,19 +75,23 @@ function Open({ children, opens: opensWindowName }) {
 
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
+
+  const ref = useOutsideClick(close);
+
   if (name !== openName) return null;
 
   return createPortal(
     <Overlay>
-      <StyledModal>
+      <StyledModal ref={ref}>
         <Button onClick={close}>
           <HiXMark />
         </Button>
-
         <div>{cloneElement(children, { onCloseModal: close })}</div>
+        {/* gives the child access to the close() function by adding the onCloseModal prop to that child (onCloseModal={close}) */}
       </StyledModal>
     </Overlay>,
-    document.body
+    document.body // portal target: renders the Modal directly under the <body> tag in HTML.
+    // It lives outside the DOM structure of the application itself (DOM of app lives inside the "root" div)
   );
 }
 
