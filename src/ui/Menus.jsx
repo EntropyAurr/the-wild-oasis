@@ -1,7 +1,9 @@
-import { createContext, useContext, useRef, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
-import { HiEllipsisVertical } from "react-icons/hi2";
+
 import styled from "styled-components";
+import { HiEllipsisVertical } from "react-icons/hi2";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 const Menu = styled.div`
   display: flex;
@@ -68,7 +70,7 @@ const MenusContext = createContext();
 
 export default function Menus({ children }) {
   const [openId, setOpenId] = useState("");
-  const [position, setPosition] = useState();
+  const [position, setPosition] = useState(null);
 
   const close = () => setOpenId("");
 
@@ -92,18 +94,14 @@ function Toggle({ id }) {
       y: rect.y + rect.height + 8,
     });
 
-    //  if (!ref.current) {
-    //       console.log("ref.current is null");
-    //       return;
-    //     }
+    // if (!ref.current) return;
 
-    //     const rect = ref.current.getBoundingClientRect();
-    //     console.log("rect:", rect);
+    // const rect = ref.current.getBoundingClientRect();
 
-    //     setPosition({
-    //       x: window.innerWidth - rect.width - rect.x,
-    //       y: rect.y + rect.height + 8,
-    //     });
+    // setPosition({
+    //   x: window.innerWidth - rect.width - rect.x,
+    //   y: rect.y + rect.height + 8,
+    // });
 
     openId === "" || openId !== id ? setOpenId(id) : close();
   }
@@ -115,18 +113,35 @@ function Toggle({ id }) {
   );
 }
 
-function List({ id, children, position }) {
-  const { openId } = useContext(MenusContext);
+function List({ id, children }) {
+  const { openId, position, close } = useContext(MenusContext);
+  const ref = useOutsideClick(close);
 
   if (openId !== id) return null;
 
-  return position && createPortal(<StyledList position={position}>{children}</StyledList>, document.body);
+  return (
+    position &&
+    createPortal(
+      <StyledList position={position} ref={ref}>
+        {children}
+      </StyledList>,
+      document.body
+    )
+  );
 }
 
-function Button({ children }) {
+function Button({ children, icon, onClick }) {
+  function handleClick() {
+    onClick?.();
+    close();
+  }
+
   return (
     <li>
-      <StyledButton>{children}</StyledButton>
+      <StyledButton onClick={handleClick}>
+        {icon}
+        <span>{children}</span>
+      </StyledButton>
     </li>
   );
 }

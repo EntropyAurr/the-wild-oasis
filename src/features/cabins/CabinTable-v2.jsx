@@ -1,5 +1,5 @@
 import Spinner from "../../ui/Spinner";
-import CabinRow from "./CabinRow";
+import CabinRow from "./CabinRow-v1";
 import { useCabins } from "./useCabins";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
