@@ -5,12 +5,14 @@ import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow-v1";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
+import Empty from "../../ui/Empty";
 
 function CabinTable() {
   const { cabins, isPending } = useCabins();
   const [searchParams] = useSearchParams();
 
   if (isPending) return <Spinner />;
+  if (!cabins.length) return <Empty resourceName="cabins" />;
 
   // 1) FILTER
   // get the data that has been stored in the URL
@@ -25,6 +27,7 @@ function CabinTable() {
   // 2) SORT
   const sortBy = searchParams.get("sortBy") || "startDate-ascending";
   const [field, direction] = sortBy.split("-");
+  // because sortBy has the template likes "name-ascending" => using split("-") will return an array of ["name", "ascending"] which field = "name", direction = "ascending"
   const modifier = direction === "ascending" ? 1 : -1;
   const sortedCabins = filteredCabins.sort((a, b) => (a[field] - b[field]) * modifier);
 
