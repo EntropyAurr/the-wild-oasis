@@ -83,6 +83,7 @@ function CabinRow({ cabin }) {
               <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
                 Duplicate
               </Menus.Button>
+              {/* Duplicate does not need to open a modal window, it just need to create a copy whenever the button is clicked */}
 
               <Modal.Open opens="edit">
                 <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>

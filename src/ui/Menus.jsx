@@ -74,11 +74,7 @@ export default function Menus({ children }) {
 
   const close = () => setOpenId("");
 
-  return (
-    <MenusContext.Provider value={{ openId, close, setOpenId, position, setPosition }}>
-      <Menu>{children}</Menu>
-    </MenusContext.Provider>
-  );
+  return <MenusContext.Provider value={{ openId, close, setOpenId, position, setPosition }}>{children}</MenusContext.Provider>;
 }
 
 function Toggle({ id }) {
@@ -131,9 +127,11 @@ function List({ id, children }) {
 }
 
 function Button({ children, icon, onClick }) {
+  const { close } = useContext(MenusContext);
+
   function handleClick() {
     onClick?.();
-    close();
+    close(); // after trigger the action, close() function will be called to close the List by setting setOpenId back to "" => if (openId !== id) return null
   }
 
   return (
