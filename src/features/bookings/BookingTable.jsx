@@ -1,9 +1,16 @@
 import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
+import Empty from "../../ui/Empty";
+import Spinner from "../../ui/Spinner";
+
+import { useBookings } from "./useBookings";
 
 function BookingTable() {
-  const bookings = [];
+  const { bookings, isPending } = useBookings();
+
+  if (isPending) return <Spinner />; // add this render condition before checking for the available of the data, otherwise it will throw an error if there is no data at all and block the UI
+  if (!bookings.length) return <Empty resourceName="bookings" />;
 
   return (
     <Menus>
@@ -17,12 +24,7 @@ function BookingTable() {
           <div></div>
         </Table.Header>
 
-        <Table.Body
-          data={bookings}
-          render={(booking) => (
-            <BookingRow key={booking.id} booking={booking} />
-          )}
-        />
+        <Table.Body data={bookings} render={(booking) => <BookingRow key={booking.id} booking={booking} />} />
       </Table>
     </Menus>
   );
