@@ -55,7 +55,7 @@ const Button = styled.button`
   font-family: "Poppins";
 
   ${(props) => sizes[props.size]}
-  ${(props) => variations[props.variation]}
+  ${(props) => variations[props.$variation]}
 `;
 
 // Not working ??

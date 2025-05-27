@@ -3,11 +3,12 @@ import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import Empty from "../../ui/Empty";
 import Spinner from "../../ui/Spinner";
+import Pagination from "../../ui/Pagination";
 
 import { useBookings } from "./useBookings";
 
 function BookingTable() {
-  const { bookings, isPending } = useBookings();
+  const { bookings, isPending, count } = useBookings();
 
   if (isPending) return <Spinner />; // add this render condition before checking for the available of the data, otherwise it will throw an error if there is no data at all and block the UI
   if (!bookings.length) return <Empty resourceName="bookings" />;
@@ -25,6 +26,10 @@ function BookingTable() {
         </Table.Header>
 
         <Table.Body data={bookings} render={(booking) => <BookingRow key={booking.id} booking={booking} />} />
+
+        <Table.Footer>
+          <Pagination count={count} />
+        </Table.Footer>
       </Table>
     </Menus>
   );

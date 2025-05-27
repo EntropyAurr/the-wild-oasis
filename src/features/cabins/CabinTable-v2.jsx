@@ -25,7 +25,7 @@ function CabinTable() {
   if (filterValue === "with-discount") filteredCabins = cabins.filter((cabin) => cabin.discount > 0);
 
   // 2) SORT
-  const sortBy = searchParams.get("sortBy") || "startDate-ascending";
+  const sortBy = searchParams.get("sortBy") || "name-ascending";
   const [field, direction] = sortBy.split("-");
   // because sortBy has the template likes "name-ascending" => using split("-") will return an array of ["name", "ascending"] which field = "name", direction = "ascending"
   const modifier = direction === "ascending" ? 1 : -1;

@@ -41,6 +41,7 @@ export default function Filter({ filterField, options }) {
 
   // add the data to the URL when triggering the event handler
   function handleClick(value) {
+    searchParams.set("page", 1); // reset the page every time we change the status, otherwise it will cause the error: 416 ( range not satisfiable)
     searchParams.set(filterField, value);
     setSearchParams(searchParams);
   }
@@ -48,7 +49,7 @@ export default function Filter({ filterField, options }) {
   return (
     <StyledFilter>
       {options.map((option) => (
-        <FilterButton onClick={() => handleClick(option.value)} key={option.value} active={option.value === currentFilter ? option.value : undefined} disabled={option.value === currentFilter}>
+        <FilterButton onClick={() => handleClick(option.value)} key={option.value} $active={option.value === currentFilter ? option.value : undefined} disabled={option.value === currentFilter}>
           {option.label}
         </FilterButton>
       ))}

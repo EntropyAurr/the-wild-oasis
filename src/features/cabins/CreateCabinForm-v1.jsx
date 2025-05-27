@@ -143,11 +143,11 @@ function CreateCabinForm({ cabinToUpdate = {}, onCloseModal }) {
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" size="medium" type="reset" onClick={handleClose}>
+        <Button $variation="secondary" size="medium" type="reset" onClick={handleClose}>
           Cancel
         </Button>
 
-        <Button variation="primary" size="medium" disabled={isWorking}>
+        <Button $variation="primary" size="medium" disabled={isWorking}>
           {isUpdateSession ? "Edit cabin" : "Create new cabin"}
         </Button>
       </FormRow>

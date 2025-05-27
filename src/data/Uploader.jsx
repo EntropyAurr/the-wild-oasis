@@ -107,22 +107,22 @@ function Uploader() {
     <div
       style={{
         marginTop: "auto",
-        backgroundColor: "#e0e7ff",
-        padding: "8px",
-        borderRadius: "5px",
+        backgroundColor: "#fdf0d5",
+        padding: "1.2rem 1.5rem",
+        borderRadius: "0.5rem",
         textAlign: "center",
         display: "flex",
         flexDirection: "column",
-        gap: "8px",
+        gap: "0.8rem",
       }}
     >
       <h3>SAMPLE DATA</h3>
 
-      <Button onClick={uploadAll} disabled={isLoading} variation="primary" size="medium">
+      <Button onClick={uploadAll} disabled={isLoading} $variation="primary" size="medium">
         Upload ALL
       </Button>
 
-      <Button onClick={uploadBookings} disabled={isLoading} variation="primary" size="medium">
+      <Button onClick={uploadBookings} disabled={isLoading} $variation="primary" size="medium">
         Upload bookings ONLY
       </Button>
     </div>
