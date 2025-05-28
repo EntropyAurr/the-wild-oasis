@@ -6,7 +6,7 @@ export function useBooking() {
   const { bookingId } = useParams(); // get the bookingId from the URL param when we defined the route in App
 
   const { isPending, data: booking } = useQuery({
-    queryKey: ["booking"],
+    queryKey: ["booking", bookingId],
     queryFn: () => getBooking(bookingId),
     retry: false,
   });
