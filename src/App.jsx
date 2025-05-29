@@ -16,6 +16,7 @@ import AppLayout from "./ui/AppLayout";
 import Booking from "./pages/Booking";
 import Checkin from "./pages/Checkin";
 
+// QueryClient: used to interact with cache
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -26,10 +27,12 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
+    // QueryClientProvider: connect and provide QueryClient to the app
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
 
       <GlobalStyles />
+
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>

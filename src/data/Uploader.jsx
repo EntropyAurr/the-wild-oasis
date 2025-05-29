@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { isFuture, isPast, isToday } from "date-fns";
 import supabase from "../services/supabase";
+import { isFuture, isPast, isToday } from "date-fns";
 
 import Button from "../ui/Button";
 import { subtractDates } from "../utils/helpers";
@@ -107,7 +107,7 @@ function Uploader() {
     <div
       style={{
         marginTop: "auto",
-        backgroundColor: "#fdf0d5",
+        backgroundColor: "#e9ecef",
         padding: "1.2rem 1.5rem",
         borderRadius: "0.5rem",
         textAlign: "center",

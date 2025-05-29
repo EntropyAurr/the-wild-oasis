@@ -3,14 +3,24 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyles = createGlobalStyle`
 :root {
   /* Indigo */
-  --color-brand-50: #fff0f3;
+  /* --color-brand-50: #fff0f3;
   --color-brand-100: #ffccd5;
   --color-brand-200: #ffb3c1;
   --color-brand-500: #ff8fa3;
   --color-brand-600: #ff758f;
   --color-brand-700: #ff4d6d;
   --color-brand-800: #c9184a;
-  --color-brand-900: #a4133c;
+  --color-brand-900: #a4133c; */
+
+  /* Green */
+  --color-brand-50: #cfecd7;
+  --color-brand-100: #92e6a7;
+  --color-brand-200: #6ede8a;
+  --color-brand-500: #4ad66d;
+  --color-brand-600: #0ead69;
+  --color-brand-700: #1c9762;
+  --color-brand-800: #0c6941;
+  --color-brand-900: #0f5738;
 
   /* Grey */
   --color-grey-0: #fff;
