@@ -41,8 +41,10 @@ export default function Filter({ filterField, options }) {
 
   // add the data to the URL when triggering the event handler
   function handleClick(value) {
-    searchParams.set("page", 1); // reset the page every time we change the status, otherwise it will cause the error: 416 ( range not satisfiable)
     searchParams.set(filterField, value);
+
+    if (searchParams.get("page")) searchParams.set("page", 1); // reset the page every time we change the status, otherwise it will cause the error: 416 ( range not satisfiable)
+
     setSearchParams(searchParams);
   }
 

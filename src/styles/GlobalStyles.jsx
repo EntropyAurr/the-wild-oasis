@@ -13,12 +13,12 @@ const GlobalStyles = createGlobalStyle`
   --color-brand-900: #a4133c; */
 
   /* Green */
-  --color-brand-50: #cfecd7;
+  --color-brand-50: #ffffff;
   --color-brand-100: #92e6a7;
   --color-brand-200: #6ede8a;
   --color-brand-500: #4ad66d;
   --color-brand-600: #0ead69;
-  --color-brand-700: #1c9762;
+  --color-brand-700: #02854c;
   --color-brand-800: #0c6941;
   --color-brand-900: #0f5738;
 

@@ -3,7 +3,7 @@ import Button from "./Button";
 import Heading from "./Heading";
 
 const StyledConfirmDelete = styled.div`
-  width: 40rem;
+  width: 50rem;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -27,10 +27,10 @@ function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal }) {
       <p>Are you sure you want to delete this {resourceName} permanently? This action cannot be undone.</p>
 
       <div>
-        <Button variation="secondary" size="medium" onClick={onCloseModal} disabled={disabled}>
+        <Button $variation="secondary" size="medium" onClick={onCloseModal} disabled={disabled}>
           Cancel
         </Button>
-        <Button variation="danger" size="medium" onClick={onConfirm} disabled={disabled}>
+        <Button $variation="danger" size="medium" onClick={onConfirm} disabled={disabled}>
           Delete
         </Button>
       </div>
