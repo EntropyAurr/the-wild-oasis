@@ -1,5 +1,4 @@
 import { useSearchParams } from "react-router-dom";
-
 import { useCabins } from "./useCabins";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow-v1";
@@ -8,8 +7,8 @@ import Menus from "../../ui/Menus";
 import Empty from "../../ui/Empty";
 
 function CabinTable() {
-  const { cabins, isPending } = useCabins();
-  const [searchParams] = useSearchParams();
+  const { cabins, isPending } = useCabins(); // get the cabin data from Supabase
+  const [searchParams] = useSearchParams(); // manage states (read, store, update) through the URL
 
   if (isPending) return <Spinner />;
   if (!cabins.length) return <Empty resourceName="cabins" />;
@@ -25,13 +24,15 @@ function CabinTable() {
   if (filterValue === "with-discount") filteredCabins = cabins.filter((cabin) => cabin.discount > 0);
 
   // 2) SORT
+  // sortBy has the template likes "name-ascending" => using split("-") will return an array of ["name", "ascending"] which field = "name", direction = "ascending"
   const sortBy = searchParams.get("sortBy") || "name-ascending";
   const [field, direction] = sortBy.split("-");
-  // because sortBy has the template likes "name-ascending" => using split("-") will return an array of ["name", "ascending"] which field = "name", direction = "ascending"
+
   const modifier = direction === "ascending" ? 1 : -1;
   const sortedCabins = filteredCabins.sort((a, b) => (a[field] - b[field]) * modifier);
 
   return (
+    // Menus context contain 3 actions: duplicate, edit, delete. Only a menu for each table row can only be opened at a time (share the same state) => wrap the entire Table inside the Menus, and for each of CabinRow, we have a Menu child component
     <Menus>
       <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
         <Table.Header>

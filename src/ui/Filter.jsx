@@ -2,13 +2,13 @@ import { useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const StyledFilter = styled.div`
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem;
   border: 1px solid var(--color-grey-100);
   background-color: var(--color-grey-0);
   box-shadow: var(--shadow-sm);
   border-radius: var(--border-radius-sm);
-  padding: 0.7rem 1rem;
-  display: flex;
-  gap: 0.6rem;
 `;
 
 const FilterButton = styled.button`
@@ -37,13 +37,13 @@ const FilterButton = styled.button`
 
 export default function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentFilter = searchParams.get(filterField) || options.at(0).value; // store the current data with the "set" method for retrieving whenever we reload the UI => for the user to know what they're selecting
+  const currentFilter = searchParams.get(filterField) || options.at(0).value; // read the current state with the "get" method for retrieving whenever we reload the UI => for the user to know what they're selecting
 
-  // add the data to the URL when triggering the event handler
   function handleClick(value) {
-    searchParams.set(filterField, value);
+    searchParams.set(filterField, value); // store the state to the URL when triggering the event handler
 
-    if (searchParams.get("page")) searchParams.set("page", 1); // reset the page every time we change the status, otherwise it will cause the error: 416 ( range not satisfiable)
+    // pagination issue: reset the page everytime we change the status, otherwise it will cause the error: 416 ( range not satisfiable)
+    if (searchParams.get("page")) searchParams.set("page", 1);
 
     setSearchParams(searchParams);
   }
