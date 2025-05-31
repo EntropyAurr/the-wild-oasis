@@ -11,6 +11,7 @@ export function useCreateCabin() {
     onSuccess: () => {
       toast.success("New cabin successfully created");
 
+      // retrieve the queryClient and invalidate the React Query's cache because we're sure the data are not yet valid after the mutation
       queryClient.invalidateQueries({
         queryKey: ["cabins"],
       });
