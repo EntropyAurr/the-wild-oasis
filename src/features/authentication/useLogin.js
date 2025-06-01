@@ -11,8 +11,8 @@ export function useLogin() {
     mutationFn: ({ email, password }) => loginApi({ email, password }),
 
     onSuccess: (user) => {
-      queryClient.setQueriesData(["user"], user); // manually set data to react query's cache
-      navigate("/dashboard");
+      queryClient.setQueryData(["user"], user.user); // manually set data to react query's cache
+      navigate("/dashboard", { replace: true });
     },
 
     onError: (err) => {

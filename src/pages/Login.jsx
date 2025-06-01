@@ -3,6 +3,7 @@ import LoginForm from "../features/authentication/LoginForm";
 import Logo from "../ui/Logo";
 import Heading from "../ui/Heading";
 import GithubLoginForm from "../features/authentication/GithubLoginForm";
+import CabinTable from "../features/cabins/CabinTable-v2";
 
 const LoginLayout = styled.main`
   min-height: 100vh;

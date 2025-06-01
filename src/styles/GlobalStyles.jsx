@@ -158,7 +158,7 @@ button:focus,
 textarea:focus,
 select:focus {
   outline: 2px solid var(--color-brand-600);
-  outline-offset: -1px;
+  outline-offset: -2px;
 }
 
 /* Parent selector, finally 😃 */
