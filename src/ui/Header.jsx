@@ -7,7 +7,7 @@ const StyledHeader = styled.header`
   gap: 2.5rem;
   align-items: center;
   justify-content: flex-end;
-  background-color: var(--color-brand-0);
+  background-color: var(--color-grey-0);
   padding: 1.2rem 4.8rem;
   border: 1px solid var(--color-grey-100);
 `;

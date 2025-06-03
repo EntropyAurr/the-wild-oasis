@@ -83,6 +83,7 @@ function Toggle({ id }) {
   // const ref = useRef(null);
 
   function handleClick(e) {
+    e.stopPropagation();
     const rect = e.target.closest("button").getBoundingClientRect(); // finding the closest button's parent and getting the position of it
 
     setPosition({
@@ -111,7 +112,7 @@ function Toggle({ id }) {
 
 function List({ id, children }) {
   const { openId, position, close } = useContext(MenusContext);
-  const ref = useOutsideClick(close);
+  const ref = useOutsideClick(close, false);
 
   if (openId !== id) return null;
 

@@ -9,6 +9,7 @@ import ButtonGroup from "../../ui/ButtonGroup";
 import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
 import Spinner from "../../ui/Spinner";
+import Empty from "../../ui/Empty";
 import Modal from "../../ui/Modal-v1";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { useMoveBack } from "../../hooks/useMoveBack";
@@ -32,6 +33,7 @@ function BookingDetail() {
   const navigate = useNavigate();
 
   if (isPending) return <Spinner />;
+  if (!booking) return <Empty resourceName="booking" />;
 
   const { status, id: bookingId } = booking; // get the status, id from each booking row
 
