@@ -80,7 +80,7 @@ function CabinRow({ cabin }) {
             <Menus.Toggle id={cabinId} />
 
             <Menus.List id={cabinId}>
-              <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
+              <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate} disabled={isCreating}>
                 Duplicate
               </Menus.Button>
               {/* Duplicate does not need to open a modal window, it just need to create a copy whenever the button is clicked */}
